@@ -47,7 +47,7 @@ export function useTetris() {
 
   if (isPlaying) {
     addShapeToBoard(
-      board,
+      renderedBoard,
       droppingBlock,
       droppingShape,
       droppingRow,
@@ -67,7 +67,7 @@ export function useTetris() {
       .forEach((row: boolean[], rowIndex: number) => {
         row.forEach((isSet: boolean, colIndex: number) => {
           if (isSet) {
-            renderedBoard[droppingRow + rowIndex][droppingColumn + colIndex] =
+            board[droppingRow + rowIndex][droppingColumn + colIndex] =
               droppingBlock;
           }
         });
