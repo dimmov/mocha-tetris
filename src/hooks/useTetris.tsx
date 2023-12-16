@@ -4,7 +4,11 @@ import { useInterval } from "./useInterval";
 import { Block, BoardShape, EmptyCell } from "../types/Board";
 import { BlockShape, SHAPES } from "../types/Shapes";
 import { BOARD_HEIGHT } from "../utils/constants";
-import { getPoints, getRandomBlock } from "../utils/helpers";
+import {
+  getPoints,
+  getRandomBlock,
+  getSequencedBlocks,
+} from "../utils/helpers";
 
 enum TickSpeed {
   Normal = 800,
@@ -102,11 +106,7 @@ export function useTetris() {
   }, tickSpeed);
 
   const startGame = useCallback(() => {
-    const startingBlocks = [
-      getRandomBlock(),
-      getRandomBlock(),
-      getRandomBlock(),
-    ];
+    const startingBlocks = [...getSequencedBlocks().reverse()];
     setScore(0);
     setUpcomingBlocks(startingBlocks);
     setIsCommitting(false);

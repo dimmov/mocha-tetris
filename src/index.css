@@ -48,33 +48,41 @@ button {
 }
 
 .cell.Empty {
-  background-color: rgb(200, 200, 200);
+  background-color: rgb(148, 188, 224);
 }
 
-.cell.I {
+.cell.B {
   background-color: rgb(80, 227, 230);
 }
 
-.cell.J {
+.cell.G {
   background-color: rgb(36, 95, 223);
 }
 
-.cell.L {
+.cell.S {
   background-color: rgb(223, 173, 36);
 }
 
-.cell.O {
+.cell.W {
   background-color: rgb(223, 217, 36);
 }
 
-.cell.S {
+.cell.SO {
   background-color: rgb(48, 211, 56);
 }
 
-.cell.T {
+.cell.WO {
   background-color: rgb(132, 61, 198);
 }
 
-.cell.Z {
+.cell.GI {
   background-color: rgb(227, 78, 78);
+}
+
+.cell.SOL {
+  background-color: rgb(48, 150, 48);
+}
+
+.cell.M {
+  background-color: rgb(229, 231, 87);
 }

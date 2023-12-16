@@ -12,7 +12,7 @@ function App() {
       <div className="controls">
         <h2>Score: {score}</h2>
         {isPlaying ? (
-          <UpcomingBlocks upcomingBlocks={upcomingBlocks} />
+          <UpcomingBlocks upcomingBlocks={upcomingBlocks.slice(5)} />
         ) : (
           <button onClick={startGame}>New Board</button>
         )}

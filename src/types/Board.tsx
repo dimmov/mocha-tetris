@@ -1,11 +1,13 @@
 export enum Block {
-  I = "I",
-  J = "J",
-  L = "L",
-  O = "O",
+  B = "B",
+  G = "G",
   S = "S",
-  T = "T",
-  Z = "Z",
+  W = "W",
+  SO = "SO",
+  WO = "WO",
+  GI = "GI",
+  SOL = "SOL",
+  M = "M",
 }
 
 export enum EmptyCell {
