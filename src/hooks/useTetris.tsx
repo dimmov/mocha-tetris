@@ -1,22 +1,78 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { hasCollisions, useTetrisBoard } from "./useTetrisBoard";
-import { useInterval } from "./interval";
-import { Block, BoardShape } from "../types/Boart";
-import { BlockShape } from "../types/Shapes";
+import { useInterval } from "./useInterval";
+import { Block, BoardShape, EmptyCell } from "../types/Board";
+import { BlockShape, SHAPES } from "../types/Shapes";
+import { BOARD_HEIGHT } from "../utils/constants";
+import { getPoints, getRandomBlock } from "../utils/helpers";
 
 enum TickSpeed {
   Normal = 800,
   Sliding = 100,
+  Fast = 50,
 }
 
 export function useTetris() {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [score, setScore] = useState(0);
+  const [upcomingBlocks, setUpcomingBlocks] = useState<Block[]>([]);
   const [isCommitting, setIsCommitting] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [tickSpeed, setTickSpeed] = useState<TickSpeed | null>(null);
+
   const [
     { board, droppingRow, droppingColumn, droppingBlock, droppingShape },
     dispatchBoardState,
   ] = useTetrisBoard();
+
+  const commitPosition = useCallback(() => {
+    if (!hasCollisions(board, droppingShape, droppingRow + 1, droppingColumn)) {
+      setIsCommitting(false);
+      setTickSpeed(TickSpeed.Normal);
+      return;
+    }
+
+    const newBoard = structuredClone(board);
+    addShapeToBoard(
+      newBoard,
+      droppingBlock,
+      droppingShape,
+      droppingRow,
+      droppingColumn
+    );
+
+    let numCleared = 0;
+
+    for (let row = BOARD_HEIGHT - 1; row >= 0; row--) {
+      if (newBoard[row].every((entry) => entry !== EmptyCell.Empty)) {
+        numCleared++;
+        newBoard.splice(row, 1);
+      }
+    }
+    const newUpcomingBlocks = structuredClone(upcomingBlocks) as Block[];
+    const newBlock = newUpcomingBlocks.pop() as Block;
+    newUpcomingBlocks.unshift(getRandomBlock());
+
+    if (hasCollisions(board, SHAPES[newBlock].shape, 0, 3)) {
+      setIsPlaying(false);
+      setTickSpeed(null);
+    } else {
+      setTickSpeed(TickSpeed.Normal);
+    }
+
+    setUpcomingBlocks(newUpcomingBlocks);
+    setScore((prevScore) => prevScore + getPoints(numCleared));
+    setTickSpeed(TickSpeed.Normal);
+    dispatchBoardState({ type: "commit", newBoard, newBlock });
+    setIsCommitting(false);
+  }, [
+    board,
+    dispatchBoardState,
+    droppingBlock,
+    droppingColumn,
+    droppingRow,
+    droppingShape,
+    upcomingBlocks,
+  ]);
 
   const gameTick = useCallback(() => {
     if (isCommitting) {
@@ -29,7 +85,15 @@ export function useTetris() {
     } else {
       dispatchBoardState({ type: "drop" });
     }
-  }, [dispatchBoardState]);
+  }, [
+    board,
+    commitPosition,
+    dispatchBoardState,
+    droppingColumn,
+    droppingRow,
+    droppingShape,
+    isCommitting,
+  ]);
 
   useInterval(() => {
     if (!isPlaying) return;
@@ -38,6 +102,14 @@ export function useTetris() {
   }, tickSpeed);
 
   const startGame = useCallback(() => {
+    const startingBlocks = [
+      getRandomBlock(),
+      getRandomBlock(),
+      getRandomBlock(),
+    ];
+    setScore(0);
+    setUpcomingBlocks(startingBlocks);
+    setIsCommitting(false);
     setIsPlaying(true);
     setTickSpeed(TickSpeed.Normal);
     dispatchBoardState({ type: "start" });
@@ -74,29 +146,100 @@ export function useTetris() {
       });
   }
 
-  const commitPosition = useCallback(() => {
-    if (!hasCollisions(board, droppingShape, droppingRow + 1, droppingColumn)) {
-      setIsCommitting(false);
-      setTickSpeed(TickSpeed.Normal);
+  useEffect(() => {
+    if (!isPlaying) {
       return;
     }
 
-    const newBoard = structuredClone(board);
-    addShapeToBoard(
-      newBoard,
-      droppingBlock,
-      droppingShape,
-      droppingRow,
-      droppingColumn
-    );
-    setTickSpeed(TickSpeed.Normal);
-    dispatchBoardState({ type: "commit" });
-    setIsCommitting(false);
-  }, []);
+    let isPressingLeft = false;
+    let isPressingRight = false;
+    let moveIntervalId: number | undefined;
+
+    const updateMovementInterval = () => {
+      clearInterval(moveIntervalId);
+      dispatchBoardState({
+        type: "move",
+        isPressingLeft,
+        isPressingRight,
+      });
+
+      moveIntervalId = setInterval(() => {
+        dispatchBoardState({
+          type: "move",
+          isPressingLeft,
+          isPressingRight,
+        });
+      }, 300);
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.repeat) {
+        return;
+      }
+      if (event.key === "ArrowDown") {
+        setTickSpeed(TickSpeed.Fast);
+      }
+
+      if (event.key === "ArrowUp") {
+        dispatchBoardState({
+          type: "move",
+          isRotating: true,
+        });
+      }
+
+      if (event.key === "ArrowLeft") {
+        dispatchBoardState({
+          type: "move",
+          isPressingLeft: true,
+        });
+      }
+
+      if (event.key === "ArrowRight") {
+        dispatchBoardState({
+          type: "move",
+          isPressingRight: true,
+        });
+      }
+
+      if (event.key === "ArrowLeft") {
+        isPressingLeft = true;
+      }
+
+      if (event.key === "ArrowRight") {
+        isPressingRight = true;
+      }
+    };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === "ArrowDown") {
+        setTickSpeed(TickSpeed.Normal);
+      }
+
+      if (event.key === "ArrowLeft") {
+        isPressingLeft = false;
+        updateMovementInterval();
+      }
+
+      if (event.key === "ArrowRight") {
+        isPressingRight = false;
+        updateMovementInterval();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+      setTickSpeed(TickSpeed.Normal);
+    };
+  }, [dispatchBoardState, isPlaying]);
 
   return {
     board: renderedBoard,
     startGame,
     isPlaying,
+    score,
+    upcomingBlocks,
   };
 }

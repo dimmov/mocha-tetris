@@ -1,4 +1,4 @@
-.App {
+.app {
   display: grid;
   grid-template-areas:
     ". title ."
@@ -6,8 +6,13 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
-.controls {
-  grid-area: controls;
+h1 {
+  text-align: center;
+  grid-area: title;
+}
+
+button {
+  padding: 4px;
 }
 
 .board {
@@ -17,8 +22,19 @@
   grid-area: game;
 }
 
+.controls {
+  grid-area: controls;
+}
+
 .row {
   display: flex;
+}
+
+.upcoming {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+  margin-left: 20px;
 }
 
 .cell {
@@ -27,9 +43,8 @@
   border: 1px solid black;
 }
 
-h1 {
-  text-align: center;
-  grid-area: title;
+.cell.hidden {
+  visibility: hidden;
 }
 
 .cell.Empty {

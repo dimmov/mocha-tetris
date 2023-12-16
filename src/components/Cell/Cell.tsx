@@ -1,4 +1,4 @@
-import { CellOptions } from "../../types/Boart";
+import { CellOptions } from "../../types/Board";
 
 interface Props {
   type: CellOptions;

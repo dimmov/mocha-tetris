@@ -1,10 +1,13 @@
-import { Block } from "./Boart";
+import { Block } from "./Board";
 
 export type BlockShape = boolean[][];
 
-export type ShapesObj = {
-  [key in keyof typeof Block]: { shape: BlockShape };
+type ShapesObj = {
+  [key in Block]: {
+    shape: BlockShape;
+  };
 };
+
 export const SHAPES: ShapesObj = {
   I: {
     shape: [
@@ -38,7 +41,7 @@ export const SHAPES: ShapesObj = {
     shape: [
       [false, false, false],
       [false, false, true],
-      [true, true, false],
+      [true, true, true],
     ],
   },
   T: {

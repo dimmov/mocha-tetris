@@ -1,5 +1,5 @@
 import Cell from "../Cell/Cell";
-import { BoardShape } from "../../types/Boart";
+import { BoardShape } from "../../types/Board";
 
 interface Props {
   currentBoard: BoardShape;
@@ -10,9 +10,9 @@ export default function Board({ currentBoard }: Props) {
     <div className="board">
       {currentBoard.map((row, rowIndex) => (
         <div className="row" key={`${rowIndex}`}>
-          {row.map((cell, colIndex) => {
-            return <Cell key={`${rowIndex}-${colIndex}`} type={cell}></Cell>;
-          })}
+          {row.map((cell, colIndex) => (
+            <Cell key={`${rowIndex}-${colIndex}`} type={cell} />
+          ))}
         </div>
       ))}
     </div>
