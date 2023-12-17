@@ -3,6 +3,7 @@ import { Block, BoardShape, EmptyCell } from "../types/Board";
 import { BlockShape, SHAPES } from "../types/Shapes";
 import { BOARD_HEIGHT, BOARD_WIDTH } from "../utils/constants";
 import { getEmptyBoard, rotateBlock } from "../utils/helpers";
+import { WINNING_COMBINATIONS } from "../utils/winning-combination";
 
 export type BoardState = {
   board: BoardShape;
@@ -124,5 +125,29 @@ export function hasCollisions(
         }
       });
     });
+
+  if (hasCompleted(board)) {
+    hasCollision = true;
+  }
   return hasCollision;
+}
+
+export function hasCompleted(
+  board: BoardShape,
+  winningCombinations: BoardShape = WINNING_COMBINATIONS
+): boolean {
+  let hasCompleted = false;
+  const boardAsStr = board
+    .flat()
+    .filter((a) => a !== EmptyCell.Empty)
+    .join("");
+  const winningPattern = winningCombinations
+    .flat()
+    .filter((a) => a !== EmptyCell.Empty)
+    .join("");
+
+  if (boardAsStr === winningPattern) {
+    hasCompleted = true;
+  }
+  return hasCompleted;
 }
