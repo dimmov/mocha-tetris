@@ -1,9 +1,10 @@
 export enum Block {
   B = "B",
   G = "G",
-  S = "S",
   W = "W",
+  S = "S",
   SO = "SO",
+  SOLD = "SOLD",
   WO = "WO",
   GI = "GI",
   SOL = "SOL",
@@ -14,6 +15,6 @@ export enum EmptyCell {
   Empty = "Empty",
 }
 
-export type CellOptions = Block | EmptyCell;
+export type CellOptions = string;
 
 export type BoardShape = CellOptions[][];

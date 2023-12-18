@@ -1,3 +1,6 @@
+body {
+  background-color: #d52b1e;
+}
 .app {
   display: grid;
   grid-template-areas:
@@ -8,15 +11,50 @@
 
 h1 {
   text-align: center;
+  font-family: "Handjet", monospace;
+  margin: 0 0 0.25rem 0;
+  font-size: 3rem;
+  text-transform: uppercase;
+  color: #fcd116;
+}
+
+h1 span {
+  background-color: grey;
+  padding: 0 5px;
+}
+
+.title {
   grid-area: title;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  align-items: center;
 }
 
 button {
-  padding: 4px;
+  margin-top: 1rem;
+  width: 15rem;
+  margin-left: 10px;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #0039a6;
+  color: #edfcfa;
+  font-size: 1.2rem;
+  cursor: pointer;
+  grid-area: button;
 }
 
+.results h3 {
+  text-align: center;
+  font-family: "Handjet", monospace;
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #fcd116;
+}
 .board {
-  border: 2px solid black;
+  border: 2px solid #0039a6;
   user-select: none;
   margin: auto;
   grid-area: game;
@@ -24,6 +62,16 @@ button {
 
 .controls {
   grid-area: controls;
+}
+
+.controls h2 {
+  text-align: start;
+  font-family: "Handjet", monospace;
+  margin: 0 0 0.25rem 0;
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: #fcd116;
+  margin-left: 10px;
 }
 
 .row {
@@ -37,61 +85,11 @@ button {
   margin-left: 20px;
 }
 
-.cell {
-  width: 30px;
-  aspect-ratio: 1;
-  border: 1px solid black;
-}
-
-.cell.hidden {
-  visibility: hidden;
-}
-
-.cell.Empty {
-  background-color: rgb(148, 188, 224);
-}
-
-.cell.B {
-  background-color: rgb(80, 227, 230);
-}
-
-.cell.G {
-  background-color: rgb(36, 95, 223);
-}
-
-.cell.S {
-  background-color: rgb(223, 173, 36);
-}
-
-.cell.W {
-  background-color: rgb(223, 217, 36);
-}
-
-.cell.SO {
-  background-color: rgb(48, 211, 56);
-}
-
-.cell.WO {
-  background-color: rgb(132, 61, 198);
-}
-
-.cell.GI {
-  background-color: rgb(227, 78, 78);
-}
-
-.cell.SOL {
-  background-color: rgb(48, 150, 48);
-}
-
-.cell.M {
-  background-color: rgb(229, 231, 87);
-}
-
 .result-modal {
   border: none;
   border-radius: 8px;
   padding: 2rem;
-  background-color: #d7fcf8;
+  background-color: #de0000;
 }
 
 .result-modal[open] {
@@ -107,6 +105,7 @@ button {
   margin: 0 0 0.25rem 0;
   font-size: 3rem;
   text-transform: uppercase;
+  color: #fcd116;
 }
 
 .result-modal form {
@@ -118,16 +117,345 @@ button {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 4px;
-  background: #12352f;
+  background: #0039a6;
   color: #edfcfa;
   font-size: 1.2rem;
   cursor: pointer;
 }
 
 .result-modal button:hover {
-  background: #051715;
+  background: #edfcfa;
+  color: #0039a6;
 }
 
 .result-modal h3 strong {
-  color: #10655b;
+  color: #fcd116;
+}
+
+.result-modal h3 {
+  text-align: start;
+  font-family: "Handjet", monospace;
+  margin: 0 0 0.25rem 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: #fcd116;
+  margin-left: 10px;
+}
+
+.cell {
+  width: 30px;
+  aspect-ratio: 1;
+  border: 1px solid rgb(162, 188, 212);
+}
+
+.cell.hidden {
+  visibility: hidden;
+}
+
+.cell.Empty,
+.cell.B,
+.cell.G,
+.cell.S,
+.cell.SOLD,
+.cell.W,
+.cell.SO,
+.cell.WO,
+.cell.GI,
+.cell.SOL,
+.cell.M {
+  background-color: rgb(193, 222, 248);
+}
+
+.cell.B0-0 {
+  background-image: url(/src/assets/B/0-0.png);
+}
+.cell.B0-1 {
+  background-image: url(/src/assets/B/0-1.png);
+}
+.cell.B0-2 {
+  background-image: url(/src/assets/B/0-2.png);
+}
+.cell.B0-3 {
+  background-image: url(/src/assets/B/0-3.png);
+}
+.cell.B0-4 {
+  background-image: url(/src/assets/B/0-4.png);
+}
+.cell.B0-5 {
+  background-image: url(/src/assets/B/0-5.png);
+}
+.cell.B0-6 {
+  background-image: url(/src/assets/B/0-6.png);
+}
+.cell.B0-7 {
+  background-image: url(/src/assets/B/0-7.png);
+}
+.cell.B0-8 {
+  background-image: url(/src/assets/B/0-8.png);
+}
+
+.cell.B1-1 {
+  background-image: url(/src/assets/B/1-1.png);
+}
+.cell.B1-2 {
+  background-image: url(/src/assets/B/1-2.png);
+}
+.cell.B1-3 {
+  background-image: url(/src/assets/B/1-3.png);
+}
+.cell.B1-4 {
+  background-image: url(/src/assets/B/1-4.png);
+}
+.cell.B1-5 {
+  background-image: url(/src/assets/B/1-5.png);
+}
+.cell.B1-6 {
+  background-image: url(/src/assets/B/1-6.png);
+}
+.cell.B1-7 {
+  background-image: url(/src/assets/B/1-7.png);
+}
+
+.cell.G0-2 {
+  background-image: url(/src/assets/G/0-2.png);
+}
+.cell.G0-3 {
+  background-image: url(/src/assets/G/0-3.png);
+}
+
+.cell.G1-2 {
+  background-image: url(/src/assets/G/1-2.png);
+}
+.cell.G1-3 {
+  background-image: url(/src/assets/G/1-3.png);
+}
+
+.cell.G2-2 {
+  background-image: url(/src/assets/G/2-2.png);
+}
+.cell.G2-3 {
+  background-image: url(/src/assets/G/2-3.png);
+}
+
+.cell.G3-2 {
+  background-image: url(/src/assets/G/3-2.png);
+}
+.cell.G3-3 {
+  background-image: url(/src/assets/G/3-3.png);
+}
+
+.cell.W0-1 {
+  background-image: url(/src/assets/W/0-1.png);
+}
+.cell.W0-2 {
+  background-image: url(/src/assets/W/0-2.png);
+}
+.cell.W1-1 {
+  background-image: url(/src/assets/W/1-1.png);
+}
+.cell.W1-2 {
+  background-image: url(/src/assets/W/1-2.png);
+}
+.cell.W2-1 {
+  background-image: url(/src/assets/W/2-1.png);
+}
+.cell.W2-2 {
+  background-image: url(/src/assets/W/2-2.png);
+}
+.cell.W3-1 {
+  background-image: url(/src/assets/W/3-1.png);
+}
+.cell.W3-2 {
+  background-image: url(/src/assets/W/3-2.png);
+}
+
+.cell.S0-0 {
+  background-image: url(/src/assets/S/0-0.png);
+}
+.cell.S0-1 {
+  background-image: url(/src/assets/S/0-1.png);
+}
+.cell.S0-2 {
+  background-image: url(/src/assets/S/0-2.png);
+}
+.cell.S1-0 {
+  background-image: url(/src/assets/S/1-0.png);
+}
+.cell.S1-1 {
+  background-image: url(/src/assets/S/1-1.png);
+}
+.cell.S1-2 {
+  background-image: url(/src/assets/S/1-2.png);
+}
+.cell.S2-0 {
+  background-image: url(/src/assets/S/2-0.png);
+}
+.cell.S2-1 {
+  background-image: url(/src/assets/S/2-1.png);
+}
+.cell.S2-2 {
+  background-image: url(/src/assets/S/2-2.png);
+}
+
+.cell.SOLD0-0 {
+  background-image: url(/src/assets/SOLD/0-0.png);
+}
+.cell.SOLD0-1 {
+  background-image: url(/src/assets/SOLD/0-1.png);
+}
+.cell.SOLD0-2 {
+  background-image: url(/src/assets/SOLD/0-2.png);
+}
+.cell.SOLD1-0 {
+  background-image: url(/src/assets/SOLD/1-0.png);
+}
+.cell.SOLD1-1 {
+  background-image: url(/src/assets/SOLD/1-1.png);
+}
+.cell.SOLD1-2 {
+  background-image: url(/src/assets/SOLD/1-2.png);
+}
+
+.cell.SO0-1 {
+  background-image: url(/src/assets/SO/0-1.png);
+}
+.cell.SO0-2 {
+  background-image: url(/src/assets/SO/0-2.png);
+}
+.cell.SO1-1 {
+  background-image: url(/src/assets/SO/1-1.png);
+}
+.cell.SO1-2 {
+  background-image: url(/src/assets/SO/1-2.png);
+}
+.cell.SO2-0 {
+  background-image: url(/src/assets/SO/2-0.png);
+}
+.cell.SO2-1 {
+  background-image: url(/src/assets/SO/2-1.png);
+}
+.cell.SO2-2 {
+  background-image: url(/src/assets/SO/2-2.png);
+}
+
+.cell.WO0-1 {
+  background-image: url(/src/assets/WO/0-1.png);
+}
+.cell.WO0-2 {
+  background-image: url(/src/assets/WO/0-2.png);
+}
+.cell.WO1-1 {
+  background-image: url(/src/assets/WO/1-1.png);
+}
+.cell.WO1-2 {
+  background-image: url(/src/assets/WO/1-2.png);
+}
+.cell.WO2-1 {
+  background-image: url(/src/assets/WO/2-1.png);
+}
+.cell.WO2-2 {
+  background-image: url(/src/assets/WO/2-2.png);
+}
+.cell.WO2-3 {
+  background-image: url(/src/assets/WO/2-3.png);
+}
+.cell.WO3-1 {
+  background-image: url(/src/assets/WO/3-1.png);
+}
+.cell.WO3-2 {
+  background-image: url(/src/assets/WO/3-2.png);
+}
+.cell.WO3-3 {
+  background-image: url(/src/assets/WO/3-3.png);
+}
+.cell.WO4-1 {
+  background-image: url(/src/assets/WO/4-1.png);
+}
+.cell.WO4-2 {
+  background-image: url(/src/assets/WO/4-2.png);
+}
+.cell.WO4-3 {
+  background-image: url(/src/assets/WO/4-3.png);
+}
+.cell.WO5-3 {
+  background-image: url(/src/assets/WO/5-3.png);
+}
+
+.cell.GI0-1 {
+  background-image: url(/src/assets/GI/0-1.png);
+}
+.cell.GI0-2 {
+  background-image: url(/src/assets/GI/0-2.png);
+}
+.cell.GI0-3 {
+  background-image: url(/src/assets/GI/0-3.png);
+}
+.cell.GI1-1 {
+  background-image: url(/src/assets/GI/1-1.png);
+}
+.cell.GI1-2 {
+  background-image: url(/src/assets/GI/1-2.png);
+}
+.cell.GI1-3 {
+  background-image: url(/src/assets/GI/1-3.png);
+}
+.cell.GI2-1 {
+  background-image: url(/src/assets/GI/2-1.png);
+}
+.cell.GI2-2 {
+  background-image: url(/src/assets/GI/2-2.png);
+}
+.cell.GI3-0 {
+  background-image: url(/src/assets/GI/3-0.png);
+}
+.cell.GI3-1 {
+  background-image: url(/src/assets/GI/3-1.png);
+}
+.cell.GI3-2 {
+  background-image: url(/src/assets/GI/3-2.png);
+}
+.cell.GI4-0 {
+  background-image: url(/src/assets/GI/4-0.png);
+}
+
+.cell.SOL0-1 {
+  background-image: url(/src/assets/SOL/0-1.png);
+}
+.cell.SOL0-2 {
+  background-image: url(/src/assets/SOL/0-2.png);
+}
+.cell.SOL1-0 {
+  background-image: url(/src/assets/SOL/1-0.png);
+}
+.cell.SOL1-1 {
+  background-image: url(/src/assets/SOL/1-1.png);
+}
+.cell.SOL1-2 {
+  background-image: url(/src/assets/SOL/1-2.png);
+}
+
+.cell.M0-1 {
+  background-image: url(/src/assets/M-Gun/0-1.png);
+}
+.cell.M0-2 {
+  background-image: url(/src/assets/M-Gun/0-2.png);
+}
+.cell.M0-3 {
+  background-image: url(/src/assets/M-Gun/0-3.png);
+}
+
+.cell.M1-0 {
+  background-image: url(/src/assets/M-Gun/1-0.png);
+}
+.cell.M1-1 {
+  background-image: url(/src/assets/M-Gun/1-1.png);
+}
+.cell.M1-2 {
+  background-image: url(/src/assets/M-Gun/1-2.png);
+}
+.cell.M2-1 {
+  background-image: url(/src/assets/M-Gun/2-1.png);
+}
+.cell.M3-1 {
+  background-image: url(/src/assets/M-Gun/3-1.png);
 }

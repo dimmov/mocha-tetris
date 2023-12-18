@@ -140,6 +140,7 @@ export function hasCompleted(
   const boardAsStr = board
     .flat()
     .filter((a) => a !== EmptyCell.Empty)
+    .map((e) => e.split(" ")[0])
     .join("");
   const winningPattern = winningCombinations
     .flat()

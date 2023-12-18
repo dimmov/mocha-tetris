@@ -18,7 +18,10 @@ export default function UpcomingBlocks({ upcomingBlocks }: Props) {
               return (
                 <div key={rowIndex} className="row">
                   {row.map((isSet, cellIndex) => {
-                    const cellClass = isSet ? block : "hidden";
+                    const cellClass = isSet
+                      ? `${block} ${block}${rowIndex}-${cellIndex}`
+                      : "hidden";
+
                     return (
                       <div
                         key={`${blockIndex}-${rowIndex}-${cellIndex}`}

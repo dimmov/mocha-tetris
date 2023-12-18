@@ -11,12 +11,6 @@ type ShapesObj = {
 export const SHAPES: ShapesObj = {
   B: {
     shape: [
-      // [false, false, false, false, false, false, false, false, false],
-      // [false, false, false, false, false, false, false, false, false],
-      // [false, false, false, false, false, false, false, false, false],
-      // [false, false, false, false, false, false, false, false, false],
-      // [false, false, false, false, false, false, false, false, false],
-      // [false, false, false, false, false, false, false, false, false],
       [true, true, true, true, true, true, true, true, true],
       [false, true, true, true, true, true, true, true, false],
     ],
@@ -24,7 +18,7 @@ export const SHAPES: ShapesObj = {
   G: {
     shape: [
       [false, false, false, false],
-      [false, true, true, true],
+      [false, false, true, true],
       [false, false, true, true],
       [false, false, true, true],
       [false, false, true, true],
@@ -32,11 +26,16 @@ export const SHAPES: ShapesObj = {
   },
   S: {
     shape: [
-      [false, true, true, true, false],
-      [false, true, true, true, false],
-      [false, true, true, true, false],
-      [false, true, true, true, false],
-      [false, true, true, true, false],
+      [true, true, true],
+      [true, true, true],
+      [true, true, true],
+    ],
+  },
+  SOLD: {
+    shape: [
+      [false, false, false],
+      [true, true, true],
+      [true, true, true],
     ],
   },
   W: {
@@ -66,10 +65,11 @@ export const SHAPES: ShapesObj = {
   },
   GI: {
     shape: [
-      [false, true, true, true],
-      [false, true, true, true],
-      [false, true, true, false],
-      [true, true, true, false],
+      [false, true, true, true, false],
+      [false, true, true, true, false],
+      [false, true, true, false, false],
+      [true, true, true, false, false],
+      [true, false, false, false, false],
     ],
   },
   SOL: {

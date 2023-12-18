@@ -5,8 +5,16 @@ import ResultModal from "./components/ResultsModal/ResultModal";
 import { useRef } from "react";
 
 function App() {
-  const { board, startGame, isPlaying, score, upcomingBlocks, isCompleted } =
-    useTetris();
+  const {
+    board,
+    startGame,
+    isPlaying,
+    saved,
+    lost,
+    score,
+    upcomingBlocks,
+    isCompleted,
+  } = useTetris();
 
   const dialog = useRef<HTMLDialogElement & { openModal(): void }>();
 
@@ -23,15 +31,24 @@ function App() {
         onReset={startGame}
       />
       <div className="app">
-        <h1>Спаси МОЧА</h1>
-
+        <div className="title">
+          <h1>
+            МОЧА{" "}
+            <span>
+              {saved} - {lost}
+            </span>{" "}
+            Сорос
+          </h1>
+        </div>
         <Board currentBoard={board} />
         <div className="controls">
-          <h2>Награда: {score} копейки</h2>
-          {isPlaying ? (
-            <UpcomingBlocks upcomingBlocks={upcomingBlocks.slice(5)} />
-          ) : (
-            <button onClick={startGame}>New Board</button>
+          {!isPlaying && <button onClick={startGame}>Спаси МОЧА</button>}
+
+          {isPlaying && (
+            <>
+              <h2>Следващ елемент:</h2>
+              <UpcomingBlocks upcomingBlocks={upcomingBlocks.slice(5)} />
+            </>
           )}
         </div>
       </div>

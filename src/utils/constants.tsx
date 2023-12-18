@@ -1,7 +1,7 @@
 import { Block } from "../types/Board";
 
-export const BOARD_HEIGHT = 24;
-export const BOARD_WIDTH = 21;
+export const BOARD_HEIGHT = 22;
+export const BOARD_WIDTH = 19;
 
 export const INITIAL_SEQUENCE: Array<keyof typeof Block> = [
   "M",
@@ -9,7 +9,8 @@ export const INITIAL_SEQUENCE: Array<keyof typeof Block> = [
   "GI",
   "WO",
   "SO",
-  "W",
+  "SOLD",
   "S",
+  "W",
   "G",
 ];

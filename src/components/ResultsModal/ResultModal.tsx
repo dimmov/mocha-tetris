@@ -24,9 +24,9 @@ const ResultModal = forwardRef(function ResultModal(
     <dialog ref={dialog} className="result-modal" onClose={onReset}>
       {isCompleted && (
         <div>
-          <h2>Ти, Спаси МОЧА!</h2>
+          <h2>Ти възстанови МОЧА!</h2>
           <h3>
-            Награда: <strong>1 копейка</strong>
+            Премия: <strong>1 копейка</strong>
           </h3>
         </div>
       )}
@@ -34,7 +34,7 @@ const ResultModal = forwardRef(function ResultModal(
         <div>
           <h2>Жълтопаветник!</h2>
           <h3>
-            Награда:{" "}
+            Премия:{" "}
             <strong>
               {score} копейк{score === 1 ? "a" : "и"}
             </strong>
@@ -43,7 +43,9 @@ const ResultModal = forwardRef(function ResultModal(
       )}
 
       <form method="dialog" onSubmit={onReset}>
-        <button type="submit">Close</button>
+        <button type="submit">
+          {isCompleted ? "Опитай отново" : "Опитай да се поправиш"}
+        </button>
       </form>
     </dialog>,
     document.getElementById("modal")!

@@ -23,6 +23,8 @@ export function useTetris() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [tickSpeed, setTickSpeed] = useState<TickSpeed | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [savedCounter, setSavedCounter] = useState(0);
+  const [lostCounter, setLostCounter] = useState(0);
 
   const [
     { board, droppingRow, droppingColumn, droppingBlock, droppingShape },
@@ -62,6 +64,9 @@ export function useTetris() {
       setTickSpeed(null);
       if (hasCompleted(board)) {
         setIsCompleted(true);
+        setSavedCounter((prev) => prev + 1);
+      } else {
+        setLostCounter((prev) => prev + 1);
       }
     } else {
       setTickSpeed(TickSpeed.Normal);
@@ -145,7 +150,7 @@ export function useTetris() {
         row.forEach((isSet: boolean, colIndex: number) => {
           if (isSet) {
             board[droppingRow + rowIndex][droppingColumn + colIndex] =
-              droppingBlock;
+              `${droppingBlock} ${droppingBlock}${rowIndex}-${colIndex}`;
           }
         });
       });
@@ -183,13 +188,6 @@ export function useTetris() {
       }
       if (event.key === "ArrowDown") {
         setTickSpeed(TickSpeed.Fast);
-      }
-
-      if (event.key === "ArrowUp") {
-        dispatchBoardState({
-          type: "move",
-          isRotating: true,
-        });
       }
 
       if (event.key === "ArrowLeft") {
@@ -247,5 +245,7 @@ export function useTetris() {
     score,
     upcomingBlocks,
     isCompleted,
+    saved: savedCounter,
+    lost: lostCounter,
   };
 }
