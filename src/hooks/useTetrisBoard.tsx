@@ -1,8 +1,9 @@
 import { Dispatch, useReducer } from "react";
 import { Block, BoardShape, EmptyCell } from "../types/Board";
 import { BlockShape, SHAPES } from "../types/Shapes";
-import { BOARD_HEIGHT } from "../utils/constants";
-import { getEmptyBoard, getRandomBlock, rotateBlock } from "../utils/helpers";
+import { BOARD_HEIGHT, BOARD_WIDTH } from "../utils/constants";
+import { getEmptyBoard, rotateBlock } from "../utils/helpers";
+import { WINNING_COMBINATIONS } from "../utils/winning-combination";
 
 export type BoardState = {
   board: BoardShape;
@@ -28,8 +29,8 @@ export function useTetrisBoard(): [BoardState, Dispatch<Action>] {
       board: [],
       droppingRow: 0,
       droppingColumn: 0,
-      droppingBlock: Block.I,
-      droppingShape: SHAPES.I.shape,
+      droppingBlock: Block.B,
+      droppingShape: SHAPES.B.shape,
     },
     (emptyState) => {
       const state = {
@@ -49,13 +50,14 @@ function boardReducer(state: BoardState, action: Action): BoardState {
   switch (action.type) {
     case "start":
       // eslint-disable-next-line no-case-declarations
-      const firstBlock = getRandomBlock();
       return {
         board: getEmptyBoard(),
-        droppingRow: 0,
-        droppingColumn: 3,
-        droppingBlock: firstBlock,
-        droppingShape: SHAPES[firstBlock].shape,
+        droppingRow: BOARD_HEIGHT - SHAPES[Block.B].shape.length,
+        droppingColumn: Math.floor(
+          (BOARD_WIDTH - SHAPES[Block.B].shape[0].length) / 2
+        ),
+        droppingBlock: Block.B,
+        droppingShape: SHAPES[Block.B].shape,
       };
     case "drop":
       newState.droppingRow++;
@@ -123,5 +125,30 @@ export function hasCollisions(
         }
       });
     });
+
+  if (hasCompleted(board)) {
+    hasCollision = true;
+  }
   return hasCollision;
+}
+
+export function hasCompleted(
+  board: BoardShape,
+  winningCombinations: BoardShape = WINNING_COMBINATIONS
+): boolean {
+  let hasCompleted = false;
+  const boardAsStr = board
+    .flat()
+    .filter((a) => a !== EmptyCell.Empty)
+    .map((e) => e.split(" ")[0])
+    .join("");
+  const winningPattern = winningCombinations
+    .flat()
+    .filter((a) => a !== EmptyCell.Empty)
+    .join("");
+
+  if (boardAsStr === winningPattern) {
+    hasCompleted = true;
+  }
+  return hasCompleted;
 }

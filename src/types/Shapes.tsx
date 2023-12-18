@@ -9,53 +9,82 @@ type ShapesObj = {
 };
 
 export const SHAPES: ShapesObj = {
-  I: {
+  B: {
     shape: [
-      [false, false, false, false],
-      [false, false, false, false],
-      [true, true, true, true],
-      [false, false, false, false],
+      [true, true, true, true, true, true, true, true, true],
+      [false, true, true, true, true, true, true, true, false],
     ],
   },
-  J: {
+  G: {
     shape: [
-      [false, false, false],
-      [true, false, false],
-      [true, true, true],
-    ],
-  },
-  L: {
-    shape: [
-      [false, false, false],
-      [false, false, true],
-      [true, true, true],
-    ],
-  },
-  O: {
-    shape: [
-      [true, true],
-      [true, true],
+      [false, false, false, false],
+      [false, false, true, true],
+      [false, false, true, true],
+      [false, false, true, true],
+      [false, false, true, true],
     ],
   },
   S: {
     shape: [
-      [false, false, false],
-      [false, false, true],
+      [true, true, true],
+      [true, true, true],
       [true, true, true],
     ],
   },
-  T: {
+  SOLD: {
     shape: [
       [false, false, false],
-      [false, true, false],
+      [true, true, true],
       [true, true, true],
     ],
   },
-  Z: {
+  W: {
     shape: [
-      [false, false, false],
-      [true, true, false],
+      [false, true, true, false],
+      [false, true, true, false],
+      [false, true, true, false],
+      [false, true, true, false],
+    ],
+  },
+  SO: {
+    shape: [
       [false, true, true],
+      [false, true, true],
+      [true, true, true],
+    ],
+  },
+  WO: {
+    shape: [
+      [false, true, true, false, false, false],
+      [false, true, true, false, false, false],
+      [false, true, true, true, false, false],
+      [false, true, true, true, false, false],
+      [false, true, true, true, false, false],
+      [false, false, false, true, false, false],
+    ],
+  },
+  GI: {
+    shape: [
+      [false, true, true, true, false],
+      [false, true, true, true, false],
+      [false, true, true, false, false],
+      [true, true, true, false, false],
+      [true, false, false, false, false],
+    ],
+  },
+  SOL: {
+    shape: [
+      [false, false, false],
+      [false, true, true],
+      [true, true, true],
+    ],
+  },
+  M: {
+    shape: [
+      [false, true, true, true],
+      [true, true, true, false],
+      [false, true, false, false],
+      [false, true, false, false],
     ],
   },
 };

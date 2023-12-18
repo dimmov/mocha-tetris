@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
-import { hasCollisions, useTetrisBoard } from "./useTetrisBoard";
+import { hasCollisions, hasCompleted, useTetrisBoard } from "./useTetrisBoard";
 import { useInterval } from "./useInterval";
 import { Block, BoardShape, EmptyCell } from "../types/Board";
 import { BlockShape, SHAPES } from "../types/Shapes";
 import { BOARD_HEIGHT } from "../utils/constants";
-import { getPoints, getRandomBlock } from "../utils/helpers";
+import {
+  getPoints,
+  getRandomBlock,
+  getSequencedBlocks,
+} from "../utils/helpers";
 
 enum TickSpeed {
   Normal = 800,
@@ -18,6 +22,9 @@ export function useTetris() {
   const [isCommitting, setIsCommitting] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [tickSpeed, setTickSpeed] = useState<TickSpeed | null>(null);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [savedCounter, setSavedCounter] = useState(0);
+  const [lostCounter, setLostCounter] = useState(0);
 
   const [
     { board, droppingRow, droppingColumn, droppingBlock, droppingShape },
@@ -55,6 +62,12 @@ export function useTetris() {
     if (hasCollisions(board, SHAPES[newBlock].shape, 0, 3)) {
       setIsPlaying(false);
       setTickSpeed(null);
+      if (hasCompleted(board)) {
+        setIsCompleted(true);
+        setSavedCounter((prev) => prev + 1);
+      } else {
+        setLostCounter((prev) => prev + 1);
+      }
     } else {
       setTickSpeed(TickSpeed.Normal);
     }
@@ -102,15 +115,12 @@ export function useTetris() {
   }, tickSpeed);
 
   const startGame = useCallback(() => {
-    const startingBlocks = [
-      getRandomBlock(),
-      getRandomBlock(),
-      getRandomBlock(),
-    ];
+    const startingBlocks = getSequencedBlocks();
     setScore(0);
     setUpcomingBlocks(startingBlocks);
     setIsCommitting(false);
     setIsPlaying(true);
+    setIsCompleted(false);
     setTickSpeed(TickSpeed.Normal);
     dispatchBoardState({ type: "start" });
   }, [dispatchBoardState]);
@@ -140,7 +150,7 @@ export function useTetris() {
         row.forEach((isSet: boolean, colIndex: number) => {
           if (isSet) {
             board[droppingRow + rowIndex][droppingColumn + colIndex] =
-              droppingBlock;
+              `${droppingBlock} ${droppingBlock}${rowIndex}-${colIndex}`;
           }
         });
       });
@@ -178,13 +188,6 @@ export function useTetris() {
       }
       if (event.key === "ArrowDown") {
         setTickSpeed(TickSpeed.Fast);
-      }
-
-      if (event.key === "ArrowUp") {
-        dispatchBoardState({
-          type: "move",
-          isRotating: true,
-        });
       }
 
       if (event.key === "ArrowLeft") {
@@ -241,5 +244,8 @@ export function useTetris() {
     isPlaying,
     score,
     upcomingBlocks,
+    isCompleted,
+    saved: savedCounter,
+    lost: lostCounter,
   };
 }

@@ -1,6 +1,6 @@
 import { Block, BoardShape, EmptyCell } from "../types/Board";
 import { BlockShape } from "../types/Shapes";
-import { BOARD_HEIGHT, BOARD_WIDTH } from "./constants";
+import { BOARD_HEIGHT, BOARD_WIDTH, INITIAL_SEQUENCE } from "./constants";
 
 export function getEmptyBoard(height = BOARD_HEIGHT): BoardShape {
   return Array(height)
@@ -9,8 +9,12 @@ export function getEmptyBoard(height = BOARD_HEIGHT): BoardShape {
 }
 
 export function getRandomBlock(): Block {
-  const blockValues = Object.values(Block);
+  const blockValues = Object.values(Block).filter((v) => v !== Block.B);
   return blockValues[Math.floor(Math.random() * blockValues.length)];
+}
+
+export function getSequencedBlocks(): Block[] {
+  return INITIAL_SEQUENCE as Block[];
 }
 
 export function rotateBlock(shape: BlockShape): BlockShape {
