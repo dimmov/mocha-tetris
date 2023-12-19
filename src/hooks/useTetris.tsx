@@ -85,6 +85,7 @@ export function useTetris() {
     droppingRow,
     droppingShape,
     upcomingBlocks,
+    score,
   ]);
 
   const gameTick = useCallback(() => {
