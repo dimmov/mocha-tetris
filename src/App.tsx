@@ -37,13 +37,17 @@ function App() {
       />
       <div className="app">
         <div className="title">
-          <button
-            className="btn help-btn"
-            onClick={toggleHelp}
-            title="Помощ от приятел"
-          >
-            <i className="fa fa-question"></i>
-          </button>
+          {isPlaying ? (
+            <button
+              className="btn help-btn"
+              onClick={toggleHelp}
+              title="Помощ от приятел"
+            >
+              <i className="fa fa-question"></i>
+            </button>
+          ) : (
+            <div style={{ width: "48px" }}></div>
+          )}
           <h1>
             МОЧА{" "}
             <span>
