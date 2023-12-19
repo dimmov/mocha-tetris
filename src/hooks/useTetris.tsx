@@ -64,7 +64,7 @@ export function useTetris() {
       setTickSpeed(null);
       if (hasCompleted(board)) {
         setIsCompleted(true);
-        setSavedCounter((prev) => prev + score + 100);
+        setSavedCounter((prev) => prev + score + 1000);
       } else {
         setLostCounter((prev) => prev + score + 1);
       }
