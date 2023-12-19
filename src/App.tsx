@@ -70,6 +70,7 @@ function App() {
           )}
           {isPlaying && (
             <>
+              <h3>Резултат: {score}</h3>
               <h2>Следващ елемент:</h2>{" "}
               <UpcomingBlocks upcomingBlocks={upcomingBlocks.slice(6)} />
             </>
