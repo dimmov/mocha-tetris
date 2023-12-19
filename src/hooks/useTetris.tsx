@@ -64,9 +64,9 @@ export function useTetris() {
       setTickSpeed(null);
       if (hasCompleted(board)) {
         setIsCompleted(true);
-        setSavedCounter((prev) => prev + 1);
+        setSavedCounter((prev) => prev + score + 100);
       } else {
-        setLostCounter((prev) => prev + 1);
+        setLostCounter((prev) => prev + score + 1);
       }
     } else {
       setTickSpeed(TickSpeed.Normal);

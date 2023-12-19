@@ -26,9 +26,10 @@ h1 span {
 .title {
   grid-area: title;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-bottom: 10px;
   align-items: center;
+  justify-content: space-between;
 }
 
 button {
@@ -140,6 +141,21 @@ button {
   text-transform: uppercase;
   color: #fcd116;
   margin-left: 10px;
+}
+.solution-image {
+  max-width: 110px;
+  margin-left: 10px;
+}
+
+.help-btn {
+  background-color: transparent;
+  border: 2px solid #fcd116;
+  width: 3rem;
+  padding: 0;
+  aspect-ratio: 1;
+  border-radius: 60%;
+  margin: 0;
+  color: #fcd116;
 }
 
 .cell {

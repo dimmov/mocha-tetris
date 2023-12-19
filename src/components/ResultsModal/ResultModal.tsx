@@ -26,7 +26,7 @@ const ResultModal = forwardRef(function ResultModal(
         <div>
           <h2>Ти възстанови МОЧА!</h2>
           <h3>
-            Премия: <strong>1 копейка</strong>
+            Премия: <strong>{score + 100} копейки</strong>
           </h3>
         </div>
       )}
@@ -36,7 +36,7 @@ const ResultModal = forwardRef(function ResultModal(
           <h3>
             Премия:{" "}
             <strong>
-              {score} копейк{score === 1 ? "a" : "и"}
+              {score + 1} копейк{score + 1 === 1 ? "a" : "и"}
             </strong>
           </h3>
         </div>
